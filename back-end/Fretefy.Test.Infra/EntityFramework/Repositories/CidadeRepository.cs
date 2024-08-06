@@ -27,6 +27,7 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
 
         public IEnumerable<Cidade> Query(string terms)
         {
+
             return _dbSet.Where(w => EF.Functions.Like(w.Nome, $"%{terms}%") || EF.Functions.Like(w.UF, $"%{terms}%"));
         }
     }
