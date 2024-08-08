@@ -12,7 +12,7 @@ namespace Fretefy.Test.Infra.EntityFramework.Mappings
             builder.Property(r => r.Nome).IsRequired().HasMaxLength(100);
             builder.Property(r => r.Ativo).IsRequired();
 
-            builder.HasMany(r => r.Cidades)
+            builder.HasMany(r => r.RegiaoCidades)
                    .WithOne(rc => rc.Regiao)
                    .HasForeignKey(rc => rc.RegiaoId);
         }

@@ -11,7 +11,7 @@ namespace Fretefy.Test.Infra.EntityFramework.Mappings
             builder.HasKey(rc => new { rc.RegiaoId, rc.CidadeId });
 
             builder.HasOne(rc => rc.Regiao)
-                   .WithMany(r => r.Cidades)
+                   .WithMany(r => r.RegiaoCidades)
                    .HasForeignKey(rc => rc.RegiaoId);
 
             builder.HasOne(rc => rc.Cidade)

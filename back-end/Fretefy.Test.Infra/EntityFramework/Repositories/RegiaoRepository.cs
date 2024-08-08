@@ -52,5 +52,10 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<bool> ExistsByNameAsync(string nome)
+        {
+            return await _context.Regiao.AnyAsync(r => r.Nome == nome);
+        }
     }
 }

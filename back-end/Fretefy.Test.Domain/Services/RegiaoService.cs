@@ -58,11 +58,25 @@ namespace Fretefy.Test.Domain.Services
 
         public async Task CreateAsync(RegiaoDTO regiaoDto)
         {
+            if (await _regiaoRepository.ExistsByNameAsync(regiaoDto.Nome))
+            {
+                throw new ArgumentException("Já existe uma região com esse nome.");
+            }
+
+            if (regiaoDto.Cidades == null || !regiaoDto.Cidades.Any())
+            {
+                throw new ArgumentException("É necessário informar pelo menos uma cidade.");
+            }
+
+            if (regiaoDto.Cidades.GroupBy(c => c.Id).Any(g => g.Count() > 1))
+            {
+                throw new ArgumentException("A mesma cidade não pode ser informada mais de uma vez.");
+            }
+
             var regiao = new Regiao
             {
                 Id = Guid.NewGuid(),
                 Nome = regiaoDto.Nome,
-                Ativo = regiaoDto.Ativo,
                 RegiaoCidades = regiaoDto.Cidades.Select(c => new RegiaoCidade
                 {
                     CidadeId = c.Id
@@ -74,21 +88,36 @@ namespace Fretefy.Test.Domain.Services
 
         public async Task UpdateAsync(RegiaoDTO regiaoDto)
         {
-            var regiao = await _regiaoRepository.GetByIdAsync(regiaoDto.Id);
-            if (regiao == null)
-                throw new Exception("Região não encontrada");
+            var existingRegiao = await _regiaoRepository.GetByIdAsync(regiaoDto.Id);
 
-            regiao.Nome = regiaoDto.Nome;
-            regiao.Ativo = regiaoDto.Ativo;
+            if (existingRegiao == null)
+            {
+                throw new ArgumentException("Região não encontrada.");
+            }
 
-            regiao.RegiaoCidades.Clear();
-            regiao.RegiaoCidades = regiaoDto.Cidades.Select(c => new RegiaoCidade
+            if (await _regiaoRepository.ExistsByNameAsync(regiaoDto.Nome))
+            {
+                throw new ArgumentException("Já existe uma região com esse nome.");
+            }
+
+            if (regiaoDto.Cidades == null || !regiaoDto.Cidades.Any())
+            {
+                throw new ArgumentException("É necessário informar pelo menos uma cidade.");
+            }
+
+            if (regiaoDto.Cidades.GroupBy(c => c.Id).Any(g => g.Count() > 1))
+            {
+                throw new ArgumentException("A mesma cidade não pode ser informada mais de uma vez.");
+            }
+
+            existingRegiao.Nome = regiaoDto.Nome;
+            existingRegiao.RegiaoCidades = regiaoDto.Cidades.Select(c => new RegiaoCidade
             {
                 CidadeId = c.Id,
-                RegiaoId = regiao.Id
+                RegiaoId = regiaoDto.Id
             }).ToList();
 
-            await _regiaoRepository.UpdateAsync(regiao);
+            await _regiaoRepository.UpdateAsync(existingRegiao);
         }
 
         public async Task DeleteAsync(Guid id)

@@ -12,5 +12,6 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
         Task CreateAsync(Regiao regiao);
         Task UpdateAsync(Regiao regiao);
         Task DeleteAsync(Guid id);
+        Task<bool> ExistsByNameAsync(string nome);
     }
 }
