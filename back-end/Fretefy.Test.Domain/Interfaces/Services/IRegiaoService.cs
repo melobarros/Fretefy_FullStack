@@ -14,5 +14,6 @@ namespace Fretefy.Test.Domain.Interfaces.Services
         Task UpdateAsync(RegiaoDTO regiaoDto);
         Task DeleteAsync(Guid id);
         Task ToggleAtivoAsync(Guid id);
+        Task<byte[]> ExportToExcelAsync();
     }
 }

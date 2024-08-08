@@ -28,6 +28,7 @@ namespace Fretefy.Test.WebApi.Controllers
 
         // GET: api/regiao/{id}
         [HttpGet("{id}")]
+        [ActionName("GetByIdAsync")]
         public async Task<ActionResult<RegiaoDTO>> GetByIdAsync(Guid id)
         {
             var regiao = await _regiaoService.GetByIdAsync(id);
@@ -91,6 +92,33 @@ namespace Fretefy.Test.WebApi.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpPut("{id}/toggleAtivar")]
+        public async Task<IActionResult> ToggleAtivoAsync(Guid id)
+        {
+            try
+            {
+                await _regiaoService.ToggleAtivoAsync(id);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+            return NoContent();
+        }
+
+        [HttpGet("export")]
+        public async Task<IActionResult> Export()
+        {
+            var content = await _regiaoService.ExportToExcelAsync();
+
+            var currentDateTime = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            var fileName = $"Regioes_{currentDateTime}.xlsx";
+
+            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+
         }
     }
 

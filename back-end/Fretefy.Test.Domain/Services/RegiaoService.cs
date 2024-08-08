@@ -6,6 +6,8 @@ using Fretefy.Test.Domain.DTOs;
 using System.Linq;
 using System;
 using Fretefy.Test.Domain.Entities;
+using System.IO;
+using ClosedXML.Excel;
 
 namespace Fretefy.Test.Domain.Services
 {
@@ -79,6 +81,7 @@ namespace Fretefy.Test.Domain.Services
             {
                 Id = Guid.NewGuid(),
                 Nome = regiaoDto.Nome,
+                Ativo = regiaoDto.Ativo,
                 RegiaoCidades = regiaoDto.Cidades.Select(c => new RegiaoCidade
                 {
                     CidadeId = c.Id
@@ -143,6 +146,36 @@ namespace Fretefy.Test.Domain.Services
 
             regiao.Ativo = !regiao.Ativo;
             await _regiaoRepository.UpdateAsync(regiao);
+        }
+
+        public async Task<byte[]> ExportToExcelAsync()
+        {
+            var regioes = await ListAsync();
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Regioes");
+                worksheet.Cell(1, 1).Value = "Nome";
+                worksheet.Cell(1, 2).Value = "Ativo";
+                worksheet.Cell(1, 3).Value = "Cidades";
+
+                int row = 2;
+                foreach (var regiao in regioes)
+                {
+                    worksheet.Cell(row, 1).Value = regiao.Nome;
+                    worksheet.Cell(row, 2).Value = regiao.Ativo ? "Sim" : "Não";
+
+                    var cidadesJoined = string.Join(", ", regiao.Cidades.Select(c => c.Nome).ToList());
+                    worksheet.Cell(row, 3).Value = cidadesJoined;
+                    row++;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    return stream.ToArray();
+                }
+            }
         }
     }
 }
