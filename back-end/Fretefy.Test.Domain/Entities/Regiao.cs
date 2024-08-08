@@ -11,7 +11,7 @@ namespace Fretefy.Test.Domain.Entities
         public bool Ativo { get; set; }
 
         [JsonIgnore]
-        public ICollection<RegiaoCidade> Cidades { get; set; }
+        public ICollection<RegiaoCidade> RegiaoCidades { get; set; }
     }
 
     public class RegiaoCidade
