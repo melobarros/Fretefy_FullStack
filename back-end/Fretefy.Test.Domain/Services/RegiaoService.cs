@@ -1,6 +1,5 @@
 ﻿using Fretefy.Test.Domain.Interfaces.Services;
 using Fretefy.Test.Infra.EntityFramework.Repositories;
-using Fretefy.Test.Domain.Interfaces.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Fretefy.Test.Domain.DTOs;
@@ -40,7 +39,10 @@ namespace Fretefy.Test.Domain.Services
         {
             var regiao = await _regiaoRepository.GetByIdAsync(id);
             if (regiao == null)
+            {
                 return null;
+            }
+                
 
             return new RegiaoDTO
             {
@@ -124,9 +126,23 @@ namespace Fretefy.Test.Domain.Services
         {
             var regiao = await _regiaoRepository.GetByIdAsync(id);
             if (regiao == null)
+            {
                 throw new Exception("Região não encontrada");
+            }  
 
             await _regiaoRepository.DeleteAsync(id);
+        }
+
+        public async Task ToggleAtivoAsync(Guid id)
+        {
+            var regiao = await _regiaoRepository.GetByIdAsync(id);
+            if (regiao == null)
+            {
+                throw new Exception("Região não encontrada");
+            }
+
+            regiao.Ativo = !regiao.Ativo;
+            await _regiaoRepository.UpdateAsync(regiao);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Fretefy.Test.Domain.DTOs;
+﻿using FluentResults;
+using Fretefy.Test.Domain.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,5 +13,6 @@ namespace Fretefy.Test.Domain.Interfaces.Services
         Task CreateAsync(RegiaoDTO regiaoDto);
         Task UpdateAsync(RegiaoDTO regiaoDto);
         Task DeleteAsync(Guid id);
+        Task ToggleAtivoAsync(Guid id);
     }
 }
