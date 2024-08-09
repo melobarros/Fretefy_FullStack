@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  API: 'http://localhost:5000/api/regioes'
+  API: {
+    regiao: 'http://localhost:5000/api/regiao',
+    cidade: 'http://localhost:5000/api/cidade'
+  }
 };
 
 /*
