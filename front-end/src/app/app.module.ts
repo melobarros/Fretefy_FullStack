@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './modules/home/home.module';
 import { ToolbarModule } from './components/toolbar/toolbar.module';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { RegiaoFormComponent } from './components/regiao-form/regiao-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RegiaoFormComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +22,9 @@ import { RouterModule } from '@angular/router';
     HomeModule,
     ToolbarModule,
 
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

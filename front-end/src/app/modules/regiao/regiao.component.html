@@ -1,3 +1,30 @@
-<p>
-  regiao works!
-</p>
+<div class="regiao-container">
+  <button class="btn btn-primary" (click)="openAddForm()">Adicionar</button>
+  <button (click)="exportar()" class="btn btn-secondary">Exportar</button>
+  
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>Nome da Região</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let regiao of regioes | async">
+        <td>{{ regiao.nome }}</td>
+        <td>{{ regiao.ativo ? 'Ativa' : 'Inativa' }}</td>
+        <td>
+          <div class="dropdown">
+            <button>Ações</button>
+            <div class="dropdown-content">
+              <button (click)="edit(regiao.id)">Editar</button>
+              <button (click)="toggleStatus(regiao)">{{ regiao.ativo ? 'Desativar' : 'Ativar' }}</button>
+              <button (click)="delete(regiao)">Deletar</button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

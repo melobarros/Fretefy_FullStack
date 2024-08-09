@@ -1,0 +1,77 @@
+.regiao-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.regiao-form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.regiao-form-container .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.regiao-form-container select.form-control {
+    height: 38px;
+}
+
+.regiao-form-container .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.regiao-form-container .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.regiao-form-container .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+.regiao-form-container .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.regiao-form-container .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.regiao-form-container .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.regiao-form-container .text-danger {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.regiao-form-container .form-group {
+    margin-bottom: 20px;
+}
+
+.regiao-form-container .btn {
+    margin-top: 10px;
+}

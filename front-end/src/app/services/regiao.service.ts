@@ -33,7 +33,7 @@ export class RegiaoService {
   }
 
   toggleAtiva(id: string): Observable<void> {
-    return this.http.patch<void>(`${this.config.API.regiao}/${id}/toggle`, {});
+    return this.http.put<void>(`${this.config.API.regiao}/${id}/toggleAtivar`, {});
   }
 
   exportRegioes(): Observable<Blob> {
