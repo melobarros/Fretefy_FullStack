@@ -110,7 +110,7 @@ namespace Fretefy.Test.WebApi.Controllers
         }
 
         [HttpGet("export")]
-        public async Task<IActionResult> Export()
+        public async Task<IActionResult> ExportAsync()
         {
             var content = await _regiaoService.ExportToExcelAsync();
 
