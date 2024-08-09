@@ -1,3 +1,5 @@
+![gif](https://github.com/user-attachments/assets/fa745d3e-c352-4889-8ab7-fdfb257c7dd6)
+
 # Fretefy | FullStack
 
 Bem vindo,
